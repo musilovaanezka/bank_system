@@ -1,10 +1,5 @@
 # Bankovní systém
 
-1. [ Úvod. ] (#intro)
-2. [ Obecné požadavky na systém. ] (#overall)
-3. [ Podrobné požadavky. ] (#detail)
-
-<a name="intro"></a>
 ## Úvod
 
 ### Účel dokumentu
@@ -19,8 +14,6 @@ V druhé části pak vnější rozhraní, podrobnější funkce a popis databáz
 
 Systém nabízí zjednodušenou aplikaci internetového bankovnictví skrze webové rozhraní s možností dvoufázového přihlašování a multiměnového bankovního účtu, kde bude uživateli umožněno plaby přijímat a odesílat, procházet zůstatky pro jednotlivé měny jeho účtu, případně měny přidávat. 
 
-
-<a name="overall"></a>
 ## Obecné požadavky na systém
 
 ### Rozsah projektu - obecné funkcionality 
@@ -75,8 +68,6 @@ Systém nabízí zjednodušenou aplikaci internetového bankovnictví skrze webo
 - uživatel musí vlastnit a mít příytup k emailové schránkce 
 - aplikace není vhodná pro uživatele se zrakovou, nebo jinou indispozicí znemožňující pohodlnou práci s běžným webovým rozhraním 
 
-
-<a name="detail"></a>
 ## Podrobnější technické specifikace 
 
 ### využité technologie 
