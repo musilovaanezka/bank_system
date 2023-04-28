@@ -10,8 +10,8 @@ using stin.Data;
 namespace stin.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230417123839_AddKlientToDatabase")]
-    partial class AddKlientToDatabase
+    [Migration("20230424085958_AddUcetToDatabase")]
+    partial class AddUcetToDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,9 @@ namespace stin.Migrations
 
             modelBuilder.Entity("stin.Models.Klient", b =>
                 {
-                    b.Property<int>("UcetNum")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("UcetNum")
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -49,11 +49,13 @@ namespace stin.Migrations
 
                     b.Property<string>("Mena")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(5)
+                        .HasColumnType("varchar(5)");
 
                     b.Property<string>("UcetNum")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
 
                     b.Property<int>("hodnota")
                         .HasColumnType("int");

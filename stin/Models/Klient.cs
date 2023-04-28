@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace stin.Models
 {
     public class Klient
     {
         [Key]
-        public int UcetNum { get; set; }
+        [StringLength(25)]
+        public string UcetNum { get; set; }
 
 
         [Required]

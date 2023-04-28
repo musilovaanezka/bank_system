@@ -20,9 +20,9 @@ namespace stin.Migrations
 
             modelBuilder.Entity("stin.Models.Klient", b =>
                 {
-                    b.Property<int>("UcetNum")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("UcetNum")
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -46,11 +46,13 @@ namespace stin.Migrations
 
                     b.Property<string>("Mena")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(5)
+                        .HasColumnType("varchar(5)");
 
                     b.Property<string>("UcetNum")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
 
                     b.Property<int>("hodnota")
                         .HasColumnType("int");
