@@ -41,6 +41,7 @@ Systém nabízí zjednodušenou aplikaci internetového bankovnictví skrze webo
 ### Uživatelské grafické rozhraní 
 - vtupním bodem aplikace je přihlašovací stránka s přihlašovacím formulářem
     - zde se uživatel přihlásí do aplikace s využitím dvoufázového ověření - po zadání přihlašovacích údajů, které sestávají z emailové adresy a hesla, se uživateli zobrazí stránka s QR kódem a Manuálním Setup Kódem. Uživatel nyní musí využít 
+
 - hlavní stránka bankovního účtu: 
     - výpis základních informací o účtu uživatele 
         - jmenovitě: číslo účtu, emailová adresa
@@ -69,13 +70,10 @@ Systém nabízí zjednodušenou aplikaci internetového bankovnictví skrze webo
 - aplikace není vhodná pro uživatele se zrakovou, nebo jinou indispozicí znemožňující pohodlnou práci s běžným webovým rozhraním 
 
 
-## Podrobnější technické specifikace 
-
 ### využité technologie 
 - ASP .NET 6.0 s Razor Pages 
 - Databáze - MySql 
 - Apache server
-- Google Authenticator 
 
 ### popis databáze 
 - 2 tabulky
@@ -106,3 +104,4 @@ Systém nabízí zjednodušenou aplikaci internetového bankovnictví skrze webo
 - sestavení apliace                             - 2 týdny
 - testování aplikace                            - 2 týdny
 - nasazení aplikace + případné úravy            - 1 až 2 týdny
+
