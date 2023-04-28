@@ -11,6 +11,6 @@ namespace stin.Data
         }
         public DbSet<Ucet> Ucty { get; set; }
 
-        public DbSet<Klient> Klienti { get; set; }
+        public DbSet<stin.Models.Klient> Klienti { get; set; }
     }
 }

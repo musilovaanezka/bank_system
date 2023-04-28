@@ -10,8 +10,8 @@ using stin.Data;
 namespace stin.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230417094646_AddUcetToDatabase")]
-    partial class AddUcetToDatabase
+    [Migration("20230418141004_AddKlientToDatabase")]
+    partial class AddKlientToDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,26 @@ namespace stin.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("stin.Models.Klient", b =>
+                {
+                    b.Property<string>("UcetNum")
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("UcetNum");
+
+                    b.ToTable("Klienti");
+                });
 
             modelBuilder.Entity("stin.Models.Ucet", b =>
                 {
