@@ -15,12 +15,15 @@ namespace Klient.Management.Service.Models
 
         public string Content { get; set; }
 
-        public Message(IEnumerable<string> to, string subject, string content)
+        public string Html { get; set; }
+
+        public Message(IEnumerable<string> to, string subject, string content, string html)
         {
             To = new List<MailboxAddress>();
             To.AddRange(to.Select(x => new MailboxAddress("email", x)));
             Subject = subject;
             Content = content;
+            Html = html;
         }
     }
 }

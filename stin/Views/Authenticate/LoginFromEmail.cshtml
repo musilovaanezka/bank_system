@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "LoginFromEmail";
+}
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <p>
+            <h4>Přihlašte se</h4>
+        </p>
+    </div>
+    <form method="post" enctype="multipart/form-data" asp-controller="Authenticate" asp-action="LoginFromEmail">
+        <p class="submit">
+            <input type="submit" name="submit" value="Login"></input>
+        </p>
+    </form>
+</div>
