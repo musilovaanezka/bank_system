@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <p>
+            <h4>Přihlašte se</h4>
+        </p>
+    </div>
+    <form method="post" enctype="multipart/form-data" asp-controller="Authenticate" asp-action="Login">
+        <p>
+            <input type="text" name="username" value="" placeholder="Email" required></input>
+        </p>
+        <p>
+            <input type="password" name="password" value="" placeholder="Password" required></input>
+        </p>
+        <p class="submit">
+            <input type="submit" name="submit" value="Login"></input>
+        </p>
+    </form>
+</div>

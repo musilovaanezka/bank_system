@@ -25,8 +25,11 @@ namespace Klient.Management.Service.Services
             emailMessage.From.Add(new MailboxAddress("email", _EmailConfiguration.From));
             emailMessage.To.AddRange(message.To);
             emailMessage.Subject = message.Subject;
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = message.Content };
-
+            var builder = new BodyBuilder();
+            builder.TextBody = string.Format (message.Content);
+            builder.HtmlBody = string.Format (message.Html);
+            emailMessage.Body = builder.ToMessageBody();
+            
             return emailMessage;
         }
 
