@@ -1,35 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using stin.Models;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CNBCurrency.Service.Models;
 
-namespace stin.Controllers
+namespace CNBCurrency.Service.Services
 {
-    public class HomeController : Controller
+    internal class CNBCurrencyService
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            getCNBData(new DateTime(2023,5,3));
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         public async Task<List<Currency>> getCNBData(DateTime date)
         {
             HttpClient client = new HttpClient();
@@ -53,21 +32,5 @@ namespace stin.Controllers
             }
             return currencyList.Where((curr) => wanted.Contains(curr.Code)).ToList();
         }
-    }
-
-    public class Currency
-    {
-
-        public Currency(string code, int amount, float exchangeRate)
-        {
-            Code = code;
-            Amount = amount;
-            ExchangeRate = exchangeRate;
-        }
-        public string Code { get; set; }
-
-        public int Amount { get; set; }
-
-        public float ExchangeRate { get; set; }
     }
 }

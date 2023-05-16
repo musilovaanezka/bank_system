@@ -5,6 +5,8 @@ using stin.Enums;
 using stin.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
+using stin.Services;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace stin.Controllers
 {
@@ -213,39 +215,60 @@ namespace stin.Controllers
                 .Where(e => e.UcetNum == ucetNum && e.Mena == platbaMena)
                 .FirstOrDefault();
 
-            // připsání vkladu na daný účet 
+
             if (ucet != null)
             {
 
                 //náhodný výběr částky pro vklad
                 int platbaCastka = rnd.Next(10, 100001);
 
-                // TODO - kontrola zůstatku na daném účtu 
-                //      if - zůstatek je menší 
-                //          převod do CZK 
-                //              kontrola zůstatku na účtu CZK 
-                //              if - zůstatek je menší 
-                //                      neprovést platbu
-                //              if - zůstatek je větší 
-                //                      odečíst částku od CZK účtu
-                //      if - zůstatek je větší 
-                //          odečíst částku od účtu dané měny 
+                if (ucet.hodnota -  platbaCastka < 0)
+                {
+                    var ucetCZK = _context.Ucty
+                        .Where(e => e.UcetNum == ucetNum && e.Mena == platbaMena)
+                        .FirstOrDefault();
+
+                    var prevedena = ToCZK(platbaCastka, platbaMena);
+
+                    if (ucetCZK.hodnota - prevedena < 0)
+                    {
+                        TempData["message"] = "Nemáte dostatečný zůstatek na CZK účtu";
+                    } else
+                    {
+                        ucetCZK.hodnota -= prevedena;
+
+                        _context.SaveChanges();
+
+                        TempData["message"] = "Platba byla úspěšně provedena";
+                    }
+
+                } else
+                {
+                    ucet.hodnota -= platbaCastka;
+
+                    _context.SaveChanges();
+
+                    TempData["message"] = "Platba byla úspěšně provedena";
+                }
 
             }
             else
             {
-                // TODO - převod do CZK 
-                //       kontrola zůstatku na účtu CZK 
-                //              if - zůstatek je menší 
-                //                      neprovést platbu
-                //              if - zůstatek je větší 
-                //                      odečíst částku od CZK účtu
-
-
-                //TempData["message"] = "Vklad nemohl být proveden, protože nevedete účet v dané měně";
+                TempData["message"] = "Platba nemohla být provedena, protože nevedete účet v dané měně";
             }
-            TempData["message"] = "Vklad byl úspěšně proveden";
             return RedirectToAction("UsersPageRedirect", new { ucetNumber = ucetNum, mena = Mena });
+        }
+
+        private int ToCZK(int castka, string mena)
+        {
+            var CNBRecord = CNBCurrencyList.currencies.FirstOrDefault(o => o.Code == mena);
+            if (CNBRecord == null)
+            {
+                return castka;
+            }
+            float kurz = CNBRecord.ExchangeRate;
+            float toAmout = castka / CNBRecord.Amount;
+            return (int)(kurz * toAmout);
         }
 
 

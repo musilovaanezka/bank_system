@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Klient.Management.Service.Models;
 using Klient.Management.Service.Services;
 using Microsoft.AspNetCore.Identity;
+using stin.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,9 @@ builder.Services.AddSingleton(emailConfiguration);
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
+
+// Add data from CNB 
+CNBCurrencyService.getCNBCurrWhileRun();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
