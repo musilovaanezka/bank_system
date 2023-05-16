@@ -1,5 +1,6 @@
 ﻿using stin.Controllers;
 using System.Diagnostics.CodeAnalysis;
+using stin.Models;
 
 namespace stin.Services
 {
@@ -14,7 +15,7 @@ namespace stin.Services
         public static async void getCNBCurrWhileRun()
         {
             var now = DateTime.Now;
-            if(CNBCurrencyList.currencies.Count == 0)
+            if (CNBCurrencyList.currencies.Count == 0)
             {
                 getCNBDataByDate(now);
             }

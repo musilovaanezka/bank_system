@@ -20,70 +20,70 @@ namespace stin.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("stin.Models.AutenticationCode", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                b.Property<string>("Code")
+                    .IsRequired()
+                    .HasColumnType("longtext");
 
-                    b.Property<DateTime>("EndDateTime")
-                        .HasColumnType("datetime(6)");
+                b.Property<DateTime>("EndDateTime")
+                    .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                b.Property<string>("Username")
+                    .IsRequired()
+                    .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("AutenticationCodes");
-                });
+                b.ToTable("AutenticationCodes");
+            });
 
             modelBuilder.Entity("stin.Models.Klient", b =>
-                {
-                    b.Property<string>("UcetNum")
-                        .HasMaxLength(25)
-                        .HasColumnType("varchar(25)");
+            {
+                b.Property<string>("UcetNum")
+                    .HasMaxLength(25)
+                    .HasColumnType("varchar(25)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                b.Property<string>("Password")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                b.Property<string>("Username")
+                    .IsRequired()
+                    .HasColumnType("longtext");
 
-                    b.HasKey("UcetNum");
+                b.HasKey("UcetNum");
 
-                    b.ToTable("Klienti");
-                });
+                b.ToTable("Klienti");
+            });
 
             modelBuilder.Entity("stin.Models.Ucet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    b.Property<string>("Mena")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("varchar(5)");
+                b.Property<string>("Mena")
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .HasColumnType("varchar(5)");
 
-                    b.Property<string>("UcetNum")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("varchar(25)");
+                b.Property<string>("UcetNum")
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .HasColumnType("varchar(25)");
 
-                    b.Property<int>("hodnota")
-                        .HasColumnType("int");
+                b.Property<int>("hodnota")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Ucty");
-                });
+                b.ToTable("Ucty");
+            });
 #pragma warning restore 612, 618
         }
     }
