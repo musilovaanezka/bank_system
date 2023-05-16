@@ -9,22 +9,28 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using stin.Data;
 using Microsoft.AspNetCore.Http.Extensions;
-using stin.Services;
 
 namespace stin.Controllers
 {
     public class AuthenticateController : Controller
     {
+        //private readonly UserManager<IdentityUser> _klientManager;
+        //private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
+        private string username;
 
         public AuthenticateController(
+            //UserManager<IdentityUser> klientManager,
             IEmailService emailService, 
             IConfiguration configuration, 
             ApplicationDbContext context
+            //SignInManager<IdentityUser> signInManager
             )
         {
+            //_klientManager = klientManager;
+            //_signInManager = signInManager;
             _emailService = emailService;
             _configuration = configuration;
             _context = context;
@@ -32,7 +38,6 @@ namespace stin.Controllers
 
         public IActionResult Login()
         {
-            ViewBag.Message = TempData["message"];
             return View();
         }
 
@@ -56,19 +61,16 @@ namespace stin.Controllers
 
             if (user == null)
             {
-                TempData["message"] = "Uživatel nenalezen";
-                return RedirectToAction("Login");
+                return BadRequest("Uživatel nenalezen");
             }
 
-            // tvorba autentizačního kódu pro link do emailu 
-            var code = new AuthenticationCodeService().getAuthenticationCode(username);
+            //var identityUser = await _klientManager.FindByEmailAsync(klient.Username);
 
-            _context.AutenticationCodes.Add(code);
-            _context.SaveChanges();
+            //var token = await _klientManager.GenerateTwoFactorTokenAsync(identityUser, "Email");
 
-            var strCode = code.Code;
-
-            var url = Url.Action(action: "LoginFromEmail", controller: "Authenticate", values: new {code = strCode, name = username}, protocol: "https", host: "localhost:44354");
+            var url = Url.Action(action: "LoginFromEmail", controller: "Authenticate", values: new {name = username}, protocol: "https", host: "localhost:44354");
+            //var url2 = HttpContext.Request.GetEncodedUrl();
+            var a = @"<link>https://localhost:44354/Authenticate/LoginFromEmail/" + user.Username.ToString() + "</link>";
             
 
             // TODO - vyměnit můj email za user.Username
@@ -80,36 +82,60 @@ namespace stin.Controllers
         }
 
         [HttpGet]
-        public IActionResult LoginFromEmail(string code, string name) // místo name bude code
+        public IActionResult LoginFromEmail(string name)
         {
-            var objCode = _context.AutenticationCodes
-                .Where(e => e.Code == code && e.Username == name)
-                .FirstOrDefault();
-
-            if (objCode == null) {
-                TempData["message"] = "Neplatný kód přihlášení";
-                return RedirectToAction("Login");
-            }
-            
-            if (objCode.EndDateTime < DateTime.Now)
-            {
-                TempData["message"] = "Platnost přihlášení vypršela";
-                return RedirectToAction("Login");
-            }
-
             var user = _context.Klienti
-                .Where(e => e.Username == name)
-                .FirstOrDefault();
+                           .Where(e => e.Username == name)
+                           .FirstOrDefault();
+            //var signIn = _signInManager.TwoFactorSignInAsync("Email", code, false, false);
 
-            if (user == null)
+            if (user != null)
             {
-                TempData["message"] = "Tento uživatel neexistuje";
-                return RedirectToAction("Login");
+                //var authClaims = new List<Claim>
+                //    {
+                //        new Claim(ClaimTypes.Name, user.Username),
+                //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                //    };
+
+                //var jwtToken = GetToken(authClaims);
+                //var stringToken = new JwtSecurityTokenHandler().WriteToken(jwtToken);
+                //RouteValueDictionary dict = new RouteValueDictionary();
+                //dict.Add("username", username);
+                this.username = name;
+                return RedirectToAction("RedirectToHomePage", new {username = name});
             }
 
-                return RedirectToAction("RedirectToHomePage", new {username = name});
+            return NotFound("Neplatný´ověřovací kód");
 
         }
+
+        //private JwtSecurityToken GetToken(List<Claim> authClaims)
+        //{
+        //    var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+        //    var token = new JwtSecurityToken(
+        //        issuer: _configuration["JWT:ValidIssuer"],
+        //        audience: _configuration["JWT:ValidAudience"],
+        //        expires: DateTime.Now.AddHours(3),
+        //        claims: authClaims,
+        //        signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+        //        );
+            
+
+        //    return token;
+        //}
+
+
+        //[HttpGet]
+        //public IActionResult ToEmail()
+        //{
+        //    var message = new Message(new string[] {"anezka.musilova@tul.cz"}, "Test", "Hi, ...");
+            
+        //    _emailService.SendEmail(message);
+               
+        //    return Ok();
+        //}
+
         
     }
 }
