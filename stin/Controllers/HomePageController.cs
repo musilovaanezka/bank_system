@@ -46,7 +46,7 @@ namespace stin.Controllers
                     .Where(e => e.UcetNum == user.UcetNum && e.Mena == "CZK")
                     .FirstOrDefault();
 
-                if ( ucetCZK == null ) { ucetCZK = createCZKUcet(user); }
+                if (ucetCZK == null) { ucetCZK = createCZKUcet(user); }
 
                 ViewBag.SelectMeny = createCurrencyList(user);
                 ViewBag.SelectUsersMeny = createUsersCurrencyList(user);
@@ -55,7 +55,8 @@ namespace stin.Controllers
 
                 return View();
 
-            } else
+            }
+            else
             {
                 return RedirectToAction("Login", "Authenticate");
             }
@@ -184,18 +185,19 @@ namespace stin.Controllers
                 ucet.hodnota += vkladCastka;
 
                 ViewBag.VkladMena = vkladMena;
-            
+
                 ViewBag.VkladCastka = vkladCastka;
 
                 _context.Ucty.Update(ucet);
                 _context.SaveChanges();
 
-                TempData["message"] = "Vklad " + vkladCastka + " " + vkladMena +  " byl úspěšně proveden";
+                TempData["message"] = "Vklad " + vkladCastka + " " + vkladMena + " byl úspěšně proveden";
 
-            } else
+            }
+            else
             {
                 TempData["message"] = "Vklad nemohl být proveden, protože nevedete účet v měně " + vkladMena;
-            } 
+            }
 
             return RedirectToAction("UsersPageRedirect", new { ucetNumber = ucetNum, mena = Mena });
         }
@@ -222,7 +224,7 @@ namespace stin.Controllers
                 //náhodný výběr částky pro vklad
                 int platbaCastka = rnd.Next(10, 100001);
 
-                if (ucet.hodnota -  platbaCastka < 0)
+                if (ucet.hodnota - platbaCastka < 0)
                 {
                     var ucetCZK = _context.Ucty
                         .Where(e => e.UcetNum == ucetNum && e.Mena == platbaMena)
@@ -233,7 +235,8 @@ namespace stin.Controllers
                     if (ucetCZK.hodnota - prevedena < 0)
                     {
                         TempData["message"] = "Nemáte dostatečný zůstatek na CZK účtu";
-                    } else
+                    }
+                    else
                     {
                         ucetCZK.hodnota -= prevedena;
 
@@ -242,7 +245,8 @@ namespace stin.Controllers
                         TempData["message"] = "Platba byla úspěšně provedena";
                     }
 
-                } else
+                }
+                else
                 {
                     ucet.hodnota -= platbaCastka;
 
@@ -287,8 +291,8 @@ namespace stin.Controllers
             _context.SaveChanges();
 
             TempData["message"] = "Účet v nové měně vytvořen";
-            return RedirectToAction("UsersPageRedirect", new { ucetNumber = ucetNum, mena = Mena }); 
-        } 
+            return RedirectToAction("UsersPageRedirect", new { ucetNumber = ucetNum, mena = Mena });
+        }
 
     }
 }

@@ -1,7 +1,15 @@
-﻿@{
+﻿﻿@{
     ViewData["Title"] = "Login";
 }
+
+@if (!String.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Message
+    </div>
+}
 <div class="row">
+
     <div class="col-md-6 offset-3">
         <p>
             <h4>Přihlašte se</h4>

@@ -1,8 +1,8 @@
 ﻿namespace stin.Models
 {
-    public class CNBCurrencyModel
+    public class Currency
     {
-        public CNBCurrencyModel(string code, int amount, float exchangeRate)
+        public Currency(string code, int amount, float exchangeRate)
         {
             Code = code;
             Amount = amount;
