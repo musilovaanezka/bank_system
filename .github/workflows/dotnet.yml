@@ -29,8 +29,6 @@ jobs:
         /p:CollectCoverage=true 
         /p:CoverletOutput=TestResults/ 
         /p:CoverletOutputFormat=lcov
-    - name: Coveralls GitHub Action
-      uses: coverallsapp/github-action@v1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }} 
-        path-to-lcov: FeatureFlags/FeatureFlags.Tests/TestResults/coverage.info 
+        
+    - name: Publish coverage report to coveralls.io   
+      uses: coverallsapp/github-action@master   
