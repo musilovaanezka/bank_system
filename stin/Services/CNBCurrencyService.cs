@@ -20,7 +20,7 @@ namespace stin.Services
                 getCNBDataByDate(now);
             }
 
-            var nextRunTime = new DateTime(now.Year, now.Month, now.Day, 14, 0, 0);
+            var nextRunTime = new DateTime(now.Year, now.Month, now.Day, 14, 30, 0);
             if (now > nextRunTime)
             {
                 nextRunTime = nextRunTime.AddDays(1);

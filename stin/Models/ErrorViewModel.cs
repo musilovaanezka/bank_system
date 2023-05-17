@@ -1,4 +1,4 @@
-namespace stin.Models
+﻿namespace stin.Models
 {
     public class ErrorViewModel
     {
