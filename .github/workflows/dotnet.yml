@@ -25,9 +25,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --collect:"XPlat Code Coverage"
-    - name: coverage report  
-      run: reportgenerator
-        -reports:"bank_system\stin.Tests\TestResults\{guid}\coverage.cobertura.xml"
-        -targetdir:"coveragereport"
-        -reporttypes:Html
+      run: dotnet test --collect:"XPlat Code Coverage
